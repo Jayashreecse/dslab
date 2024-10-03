@@ -1,0 +1,195 @@
+# include <stdio.h>
+# include <conio.h>
+#define size 5
+
+int stack[size];
+int top = -1;
+
+void push(int value){
+    if (top== size-1){
+        printf("stack overflow stack is full ");
+    }
+    else{
+        top++;
+        stack[top]=value;
+        printf("\n insertion successful%d",value);
+
+    }
+}
+void pop(){
+    if(top == -1){
+        printf("stack underflow stack is empty ");
+
+    }
+    else{
+        printf("%d deleted element is ",stack[top]);
+        top--;
+    }
+}
+void display(){
+    if(top == -1){
+        printf("stack underflow stack is empty ");
+
+    }
+    else{
+        printf("the elements are ");
+        for(int i= top; i>=0; i--)
+          printf("%d\n ",stack[i]);
+    }
+
+}
+
+void main(){
+    int choice,value;
+    
+    while(1){
+        printf("\n\n**menu**\n");
+        printf("the available options are \n");
+        printf("1.push\n2.pop\n3.display\n4.exit");
+        printf("\n enter ur choice ");
+        scanf("%d",&choice);
+        switch (choice){
+            case 1:
+            printf("\nenter valur \n");
+            scanf("%d",&value);
+            push(value);
+            break;
+            case 2:
+            pop();
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            printf("--exit--");
+            default:
+            printf("invalid option try again");
+        }
+
+
+    }
+}
+output:
+
+**menu**
+the available options are 
+1.push
+2.pop
+3.display
+4.exit
+ enter ur choice 1
+
+enter valur 
+1
+
+ insertion successful1
+
+**menu**
+the available options are 
+1.push
+2.pop
+3.display
+4.exit
+ enter ur choice 
+1
+
+enter valur 
+2
+
+ insertion successful2
+
+**menu**
+the available options are 
+1.push
+2.pop
+3.display
+4.exit
+ enter ur choice 3
+the elements are 2
+ 1
+ 
+
+**menu**
+the available options are 
+1.push
+2.pop
+3.display
+4.exit
+ enter ur choice 3
+the elements are 2
+ 1
+ 
+
+**menu**
+the available options are 
+1.push
+2.pop
+3.display
+4.exit
+ enter ur choice 1
+
+enter valur 
+6
+
+ insertion successful6
+
+**menu**
+the available options are 
+1.push
+2.pop
+3.display
+4.exit
+ enter ur choice 1
+
+enter valur 
+7
+
+ insertion successful7
+
+**menu**
+the available options are 
+1.push
+2.pop
+3.display
+4.exit
+ enter ur choice 3
+the elements are 7
+ 6
+ 2
+ 1
+ 
+
+**menu**
+the available options are 
+1.push
+2.pop
+3.display
+4.exit
+ enter ur choice 2
+7 deleted element is 
+
+**menu**
+the available options are 
+1.push
+2.pop
+3.display
+4.exit
+ enter ur choice 4
+--exit--invalid option try again
+
+**menu**
+the available options are 
+1.push
+2.pop
+3.display
+4.exit
+ enter ur choice 5
+invalid option try again
+
+**menu**
+the available options are 
+1.push
+2.pop
+3.display
+4.exit
+ enter ur choice 
