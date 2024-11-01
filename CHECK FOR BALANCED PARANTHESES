@@ -1,0 +1,82 @@
+CHECK FOR BALANCED PARANTHESES
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100  // Maximum size of the stack
+
+// Stack structure
+char stack[MAX];
+int top = -1;  // Initialize stack top
+
+// Function prototypes
+void push(char item);      // Push item onto the stack
+char pop();                // Pop item from the stack
+int isEmpty();            // Check if the stack is empty
+int isBalanced(const char *expression);  // Check if parentheses are balanced
+
+int main() {
+    char expression[MAX];
+
+    printf("Enter an expression: ");
+    scanf("%99[^\n]", expression); // Read the expression, limit to 99 characters
+
+    printf("You entered: %s\n", expression); // Print the entered expression
+
+    if (isBalanced(expression)) {
+        printf("The expression is balanced.\n");
+    } else {
+        printf("The expression is not balanced.\n");
+    }
+
+    return 0;
+}
+
+// Push item onto the stack
+void push(char item) {
+    if (top == MAX - 1) {
+        printf("Stack Overflow\n");
+        return;
+    }
+    stack[++top] = item;  // Increment top and add item
+}
+
+// Pop item from the stack
+char pop() {
+    if (isEmpty()) {
+        return '\0';  // Return null character if stack is empty
+    }
+    return stack[top--];  // Return the top item and decrement top
+}
+
+// Check if the stack is empty
+int isEmpty() {
+    return top == -1;  // Return true if top is -1 (stack is empty)
+}
+
+// Check if the parentheses in the expression are balanced
+int isBalanced(const char *expression) {
+    char ch;
+    for (int i = 0; expression[i] != '\0'; i++) {
+        ch = expression[i];
+        // If it's an opening parenthesis, push onto the stack
+        if (ch == '(' || ch == '{' || ch == '[') {
+            push(ch);
+        }
+        // If it's a closing parenthesis, check for matching opening parenthesis
+        else if (ch == ')' || ch == '}' || ch == ']') {
+            if (isEmpty()) {
+                return 0;  // No opening parenthesis for this closing one
+            }
+            char poppedChar = pop();  // Pop from the stack
+            // Check for matching parentheses
+            if ((ch == ')' && poppedChar != '(') ||
+                (ch == '}' && poppedChar != '{') ||
+                (ch == ']' && poppedChar != '[')) {
+                return 0;  // Mismatched parentheses
+            }
+        }
+    }
+    // If stack is empty at the end, parentheses are balanced
+    return isEmpty();
+}
