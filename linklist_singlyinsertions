@@ -1,0 +1,99 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+
+void insertAtFront(struct Node** head, int newData) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = newData; 
+    newNode->next = *head;  
+    *head = newNode;  
+}
+
+
+void insertAtEnd(struct Node** head, int newData) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));  
+    struct Node* last = *head;  
+
+    newNode->data = newData;  
+    newNode->next = NULL;  
+
+    
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+
+    
+    while (last->next != NULL) {
+        last = last->next;
+    }
+
+    
+    last->next = newNode;
+}
+
+
+void insertAtPosition(struct Node** head, int position, int newData) {
+    if (position < 1) {  // Invalid position (positions start from 1)
+        printf("Invalid position\n");
+        return;
+    }
+
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));  
+    struct Node* temp = *head;
+
+    newNode->data = newData;  
+
+    
+    if (position == 1) {
+        newNode->next = *head;  
+        *head = newNode;  
+        return;
+    }
+
+    
+    for (int i = 1; temp != NULL && i < position - 1; i++) {
+        temp = temp->next;
+    }
+
+    
+    if (temp == NULL) {
+        printf("Position exceeds the length of the list\n");
+        return;
+    }
+
+   
+    newNode->next = temp->next; 
+    temp->next = newNode;  
+}
+
+
+void printList(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+
+int main() {
+    struct Node* head = NULL; 
+
+   
+    insertAtFront(&head, 10); 
+    insertAtEnd(&head, 20);   
+    insertAtEnd(&head, 30);   
+    insertAtPosition(&head, 2, 15); 
+    
+    printList(head);
+
+    return 0;
+}
