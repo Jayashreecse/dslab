@@ -1,0 +1,130 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+int data;
+struct node*next;
+};
+
+void insfrt(struct node** head,int ndata){
+struct node* newnode=(struct node*) malloc(sizeof(struct node));
+newnode->data=ndata;
+newnode->next=*head;
+*head=newnode;
+}
+
+void display(struct node* node){
+while(node != NULL){
+printf("%d\n",node->data);
+node=node->next;
+}
+}
+
+void delfrt(struct node** head){
+struct node *ptr;
+if(head == NULL)
+{
+printf("\nList is empty");
+}
+else
+{
+ptr =*head;
+*head = ptr->next;
+free(ptr);
+printf("\n Node deleted from the begining ...");
+}
+
+}
+
+void delend(struct node** head){
+struct node *ptr,*prv;
+if(head == NULL)
+{
+printf("\nlist is empty");
+}
+else if((*head)->next == NULL)
+{
+free(head);
+head = NULL;
+printf("\nOnly node of the list deleted ...");
+}
+else
+{
+struct node *ptr = *head;
+while(ptr->next != NULL)
+{
+prv = ptr;
+ptr = ptr ->next;
+}
+prv->next = NULL;
+free(ptr);
+printf("\n Deleted Node from the last ...");
+}
+}
+
+
+
+void delpos(struct node** head){
+struct node *ptr, *prv;
+int loc,i;
+printf("enter location :");
+scanf("%d",&loc);
+ptr=*head;
+for(i=0;i<loc;i++)
+{
+prv = ptr;
+ptr = ptr->next;
+if(ptr == NULL)
+{
+printf("\nThere are less than %d elements in the list..\n",loc);
+return;
+}
+}
+prv ->next = ptr ->next;
+free(ptr);
+printf("\nDeleted %d node ",loc);
+
+
+}
+
+int main(){
+struct node* head=NULL;
+int choice,newdata;
+
+while(1){
+printf("the operation are 1.INSERT \n 2.Display \n 3.deltete at front \n 4.delete at end \n 5.delete at position\n");
+printf("enter choice: ");
+scanf("%d",&choice);
+switch(choice){
+
+case 1:
+printf("Enter the number: ");
+scanf("%d",&newdata);
+insfrt(&head,newdata);
+break;
+
+case 2:
+display(head);
+break;
+
+case 3:
+delfrt(&head);
+break;
+
+case 4:
+delend(&head);
+break;
+
+case 5:
+delpos(&head);
+break;
+
+default:
+printf("invalid choice");
+
+
+}
+
+}
+return 0;
+}
