@@ -20,26 +20,16 @@ struct Node* reverseList(struct Node* head) {
     return prev;  // Return the new head (previously the last node)
 }
 
-// Function to create a copy of the linked list
 struct Node* copyList(struct Node* head) {
-    if (head == NULL) return NULL;
+    if (head == NULL) return NULL;  // Return NULL if the list is empty
 
-    struct Node* newHead = (struct Node*)malloc(sizeof(struct Node));
-    newHead->data = head->data;
-    struct Node* currentOriginal = head->next;
-    struct Node* currentCopy = newHead;
+    struct Node* newHead = (struct Node*)malloc(sizeof(struct Node));  // Create the first node
+    newHead->data = head->data;  // Copy the data from the original list
+    newHead->next = copyList(head->next);  // Recursively copy the rest of the list
 
-    while (currentOriginal != NULL) {
-        struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-        newNode->data = currentOriginal->data;
-        currentCopy->next = newNode;
-        currentCopy = newNode;
-        currentOriginal = currentOriginal->next;
-    }
-
-    currentCopy->next = NULL;
-    return newHead;
+    return newHead;  // Return the head of the new list
 }
+
 
 // Function to check if the linked list is a palindrome
 bool isPalindrome(struct Node* head) {
